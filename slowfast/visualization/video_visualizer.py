@@ -343,7 +343,7 @@ class ImgVisualizer(Visualizer):
 
 class VideoVisualizer:
     def __init__(
-        self, num_classes, class_names_path, top_k=1, colormap="rainbow"
+        self, num_classes, class_names_path, top_k=3, colormap="rainbow"
     ):
         """
         Args:
@@ -356,7 +356,7 @@ class VideoVisualizer:
         """
         self.num_classes = num_classes
         self.class_names, _, _ = get_class_names(class_names_path, None, None)
-        self.top_k = top_k
+        self.top_k = 5
         self.color_map = plt.get_cmap(colormap)
 
     def _get_color(self, class_id):
