@@ -73,7 +73,7 @@ OUTPUT_DIR: .
 DEMO:
   ENABLE: True
   LABEL_FILE_PATH: "/mnt/workspace/lm78463/ava/ava_lables.json"
-  INPUT_VIDEO: "/mnt/workspace/lm78463/sf_videos/gt/muscle_up.mp4"
-  OUTPUT_FILE: "/mnt/workspace/lm78463/sf_videos/pred/muscle_up_sf.mp4"
+  INPUT_VIDEO: "/mnt/workspace/lm78463/sf_videos/gt/jochen_gt.mp4"
+  OUTPUT_FILE: "/mnt/workspace/lm78463/sf_videos/pred/jochen_sf_test.mp4"
   DETECTRON2_CFG: "COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml"
   DETECTRON2_WEIGHTS: detectron2://COCO-Detection/faster_rcnn_R_50_FPN_3x/137849458/model_final_280758.pkl

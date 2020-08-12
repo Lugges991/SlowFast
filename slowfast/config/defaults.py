@@ -411,6 +411,12 @@ _C.DETECTION.SPATIAL_SCALE_FACTOR = 16
 # RoI tranformation resolution.
 _C.DETECTION.ROI_XFORM_RESOLUTION = 7
 
+_C.DETECTION.DRAW_RANGE = False
+
+_C.DETECTION.FONT_SIZE = 25
+
+_C.DETECTION.FADE = False
+
 
 # -----------------------------------------------------------------------------
 # AVA Dataset options

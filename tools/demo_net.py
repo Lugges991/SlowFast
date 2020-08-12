@@ -47,6 +47,8 @@ def run_demo(cfg, frame_provider):
         cfg.DEMO.LABEL_FILE_PATH,
         cfg.TENSORBOARD.MODEL_VIS.TOPK_PREDS,
         cfg.TENSORBOARD.MODEL_VIS.COLORMAP,
+        cfg.DETECTION.FADE,
+        cfg.DETECTION.FONT_SIZE,
     )
 
     if cfg.DETECTION.ENABLE:
@@ -67,12 +69,11 @@ def run_demo(cfg, frame_provider):
     for able_to_read, task in frame_provider:
         if not able_to_read:
             break
-
         if cfg.DETECTION.ENABLE:
             task = object_detector(task)
 
         task = model(task)
-        frames = draw_predictions(task, video_vis)
+        frames = draw_predictions(task, video_vis, cfg.DETECTION.DRAW_RANGE)
         # hit Esc to quit the demo.
         key = cv2.waitKey(1)
         if key == 27:

@@ -37,7 +37,7 @@ def _create_text_labels(classes, scores, class_names, ground_truth=False):
     elif scores is not None:
         assert len(classes) == len(scores)
         labels = [
-            "[{:.0f}] {}".format(s * 100, label)
+            "[{:.0f}%] {}".format(s * 100, label)
             for s, label in zip(scores, labels)
         ]
 
@@ -343,7 +343,7 @@ class ImgVisualizer(Visualizer):
 
 class VideoVisualizer:
     def __init__(
-        self, num_classes, class_names_path, top_k=3, colormap="rainbow"
+        self, num_classes, class_names_path, top_k=3, colormap="rainbow", fade=False, font_size=25
     ):
         """
         Args:
@@ -358,6 +358,8 @@ class VideoVisualizer:
         self.class_names, _, _ = get_class_names(class_names_path, None, None)
         self.top_k = 5
         self.color_map = plt.get_cmap(colormap)
+        self.fade = fade
+        self.font_size = font_size
 
     def _get_color(self, class_id):
         """
@@ -375,6 +377,7 @@ class VideoVisualizer:
         alpha=0.5,
         text_alpha=0.7,
         ground_truth=False,
+        font_size=25
     ):
         """
             Draw labels and bouding boxes for one image. By default, predicted labels are drawn in
@@ -424,9 +427,6 @@ class VideoVisualizer:
                 )
             )
         frame_visualizer = ImgVisualizer(frame, meta=None)
-        font_size = min(
-            max(np.sqrt(frame.shape[0] * frame.shape[1]) // 35, 5), 9
-        )
         top_corner = not ground_truth
         if bboxes is not None:
             assert len(preds) == len(
@@ -558,36 +558,57 @@ class VideoVisualizer:
         )
 
         frames, adjusted = self._adjust_frames_type(frames)
-        if keyframe_idx is None:
-            half_left = len(repeated_seq) // 2
-            half_right = (len(repeated_seq) + 1) // 2
-        else:
-            mid = int((keyframe_idx / len(frames)) * len(repeated_seq))
-            half_left = mid
-            half_right = len(repeated_seq) - mid
+        if self.fade:
+            if keyframe_idx is None:
+                half_left = len(repeated_seq) // 2
+                half_right = (len(repeated_seq) + 1) // 2
+            else:
+                mid = int((keyframe_idx / len(frames)) * len(repeated_seq))
+                half_left = mid
+                half_right = len(repeated_seq) - mid
 
-        alpha_ls = np.concatenate(
-            [
-                np.linspace(0, 1, num=half_left),
-                np.linspace(1, 0, num=half_right),
-            ]
-        )
-        text_alpha = text_alpha
-        frames = frames[repeated_seq]
-        img_ls = []
-        for alpha, frame in zip(alpha_ls, frames):
-            draw_img = self.draw_one_frame(
-                frame,
-                preds,
-                bboxes,
-                alpha=alpha,
-                text_alpha=text_alpha,
-                ground_truth=ground_truth,
+            alpha_ls = np.concatenate(
+                [
+                    np.linspace(0, 1, num=half_left),
+                    np.linspace(1, 0, num=half_right),
+                ]
             )
-            if adjusted:
-                draw_img = draw_img.astype("float32") / 255
+            text_alpha = text_alpha
+            frames = frames[repeated_seq]
+            img_ls = []
+            for alpha, frame in zip(alpha_ls, frames):
+                draw_img = self.draw_one_frame(
+                    frame,
+                    preds,
+                    bboxes,
+                    alpha=alpha,
+                    text_alpha=text_alpha,
+                    ground_truth=ground_truth,
+                )
+                if adjusted:
+                    draw_img = draw_img.astype("float32") / 255
 
-            img_ls.append(draw_img)
+                img_ls.append(draw_img)
+        else:
+            alpha_ls = np.linspace(1,1, num=len(repeated_seq))
+            text_alpha = text_alpha
+            frames = frames[repeated_seq]
+            img_ls = []
+            for alpha, frame in zip(alpha_ls, frames):
+                draw_img = self.draw_one_frame(
+                    frame,
+                    preds,
+                    bboxes,
+                    alpha=alpha,
+                    text_alpha=text_alpha,
+                    ground_truth=ground_truth,
+                )
+                if adjusted:
+                    draw_img = draw_img.astype("float32") / 255
+
+                img_ls.append(draw_img)
+
+
 
         return img_ls
 
