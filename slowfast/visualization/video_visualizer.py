@@ -356,7 +356,7 @@ class VideoVisualizer:
         """
         self.num_classes = num_classes
         self.class_names, _, _ = get_class_names(class_names_path, None, None)
-        self.top_k = 5
+        self.top_k = top_k
         self.color_map = plt.get_cmap(colormap)
         self.fade = fade
         self.font_size = font_size
@@ -440,7 +440,7 @@ class VideoVisualizer:
                 colors = [self._get_color(pred) for pred in pred_class]
 
                 box_color = "r" if ground_truth else "g"
-                line_style = "--" if ground_truth else "-."
+                line_style = "--" if ground_truth else "-"
                 frame_visualizer.draw_box(
                     box,
                     alpha=alpha,

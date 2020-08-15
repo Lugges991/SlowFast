@@ -417,6 +417,8 @@ _C.DETECTION.FONT_SIZE = 25
 
 _C.DETECTION.FADE = False
 
+_C.DETECTION.TOP_K = 3
+
 
 # -----------------------------------------------------------------------------
 # AVA Dataset options
@@ -606,7 +608,7 @@ _C.TENSORBOARD.MODEL_VIS.INPUT_VIDEO = False
 # along the batch dimension in `layer1`, we take arr[[1, 2], [1, 2]]
 _C.TENSORBOARD.MODEL_VIS.LAYER_LIST = []
 # Top-k predictions to plot on videos
-_C.TENSORBOARD.MODEL_VIS.TOPK_PREDS = 1
+_C.TENSORBOARD.MODEL_VIS.TOPK_PREDS = 3
 
 # Colormap to for text boxes and bounding boxes colors
 _C.TENSORBOARD.MODEL_VIS.COLORMAP = "Pastel2"
@@ -665,6 +667,36 @@ _C.DEMO.GT_BOXES = ""
 _C.DEMO.STARTING_SECOND = 900
 # Frames per second of the input video/folder of images.
 _C.DEMO.FPS = 30
+
+# Demo visualizations
+# _C.TENSORBOARD.ENABLE must be True.
+_C.DEMO.MODEL_VIS = CfgNode()
+
+# If False, skip model visualization.
+_C.DEMO.MODEL_VIS.ENABLE = False
+
+# If False, skip visualizing model weights.
+_C.DEMO.MODEL_VIS.MODEL_WEIGHTS = False
+
+# If False, skip visualizing model activations.
+_C.DEMO.MODEL_VIS.ACTIVATIONS = False
+
+# If False, skip visualizing input videos.
+_C.DEMO.MODEL_VIS.INPUT_VIDEO = False
+
+# List of strings containing data about layer names and their indexing to
+# visualize weights and activations for. The indexing is meant for
+# choosing a subset of activations outputed by a layer for visualization.
+# If indexing is not specified, visualize all activations outputed by the layer.
+# For each string, layer name and indexing is separated by whitespaces.
+# e.g.: [layer1 1,2;1,2, layer2, layer3 150,151;3,4]; this means for each array `arr`
+# along the batch dimension in `layer1`, we take arr[[1, 2], [1, 2]]
+_C.DEMO.MODEL_VIS.LAYER_LIST = []
+# Top-k predictions to plot on videos
+_C.DEMO.MODEL_VIS.TOPK_PREDS = 3
+
+# Colormap to for text boxes and bounding boxes colors
+_C.DEMO.MODEL_VIS.COLORMAP = "Pastel2"
 
 
 # Add custom config with default values.

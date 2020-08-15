@@ -3,6 +3,7 @@
 
 import cv2
 import torch
+import numpy as np
 from detectron2 import model_zoo
 from detectron2.config import get_cfg
 from detectron2.engine import DefaultPredictor
@@ -148,7 +149,7 @@ class Detectron2Predictor:
         return task
 
 
-def draw_predictions(task, video_vis):
+def draw_predictions(task, video_vis, dr=True):
     """
     Draw prediction for the given task.
     Args:
@@ -170,10 +171,13 @@ def draw_predictions(task, video_vis):
         )
 
     keyframe_idx = len(frames) // 2 - task.num_buffer_frames
-    draw_range = [
-        keyframe_idx - task.clip_vis_size,
-        keyframe_idx + task.clip_vis_size,
-    ]
+    if dr:
+        draw_range = [
+            keyframe_idx - task.clip_vis_size,
+            keyframe_idx + task.clip_vis_size,
+        ]
+    else:
+        draw_range = None
     frames = frames[task.num_buffer_frames :]
     if boxes is not None:
         if len(boxes) != 0:

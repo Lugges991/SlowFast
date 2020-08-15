@@ -45,7 +45,7 @@ def run_demo(cfg, frame_provider):
     video_vis = VideoVisualizer(
         cfg.MODEL.NUM_CLASSES,
         cfg.DEMO.LABEL_FILE_PATH,
-        cfg.TENSORBOARD.MODEL_VIS.TOPK_PREDS,
+        cfg.DETECTION.TOP_K,
         cfg.TENSORBOARD.MODEL_VIS.COLORMAP,
         cfg.DETECTION.FADE,
         cfg.DETECTION.FONT_SIZE,
