@@ -679,10 +679,10 @@ _C.DEMO.MODEL_VIS.ENABLE = False
 _C.DEMO.MODEL_VIS.MODEL_WEIGHTS = False
 
 # If False, skip visualizing model activations.
-_C.DEMO.MODEL_VIS.ACTIVATIONS = False
+_C.DEMO.MODEL_VIS.ACTIVATIONS = ""
 
 # If False, skip visualizing input videos.
-_C.DEMO.MODEL_VIS.INPUT_VIDEO = False
+_C.DEMO.MODEL_VIS.INPUT_VIDEO = ""
 
 # List of strings containing data about layer names and their indexing to
 # visualize weights and activations for. The indexing is meant for

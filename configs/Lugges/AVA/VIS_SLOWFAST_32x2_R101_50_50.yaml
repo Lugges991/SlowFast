@@ -83,7 +83,7 @@ DEMO:
     MODEL_VIS:
         ENABLE: True
         MODEL_WEIGHTS: True
-        ACTIVATIONS: True
+        ACTIVATIONS: "/mnt/workspace/lm78463/sf/pred/mike_greifbar_new_act.mp4"
         INPUT_VIDEO: "/mnt/workspace/lm78463/sf_videos/gt/mike_greifbar_new.mp4"
         LAYER_LIST: ["s1/pathway0_stem/conv"]
 

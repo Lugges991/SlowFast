@@ -49,6 +49,15 @@ class VideoReader:
             self.output_file = self.get_output_file(
                 cfg.DEMO.OUTPUT_FILE, fps=output_fps
             )
+        self.output_file = None
+        if cfg.DEMO.MODEL_VIS.ACTIVATIONS != "":
+            if cfg.DEMO.OUTPUT_FPS == -1:
+                acti_output_fps = self.cap.get(cv2.CAP_PROP_FPS)
+            else:
+                acti_output_fps = cfg.DEMO.OUTPUT_FPS
+            self.acti_output_file = self.get_output_file(
+                cfg.DEMO.MODEL_VIS.ACTIVATIONS, fps=acti_output_fps
+            )
         self.id = -1
         self.buffer = []
         self.buffer_size = cfg.DEMO.BUFFER_SIZE
@@ -97,15 +106,18 @@ class VideoReader:
             isColor=True,
         )
 
-    def display(self, frame):
+    def display(self, frame, acti=None):
         """
         Either display a single frame (BGR image) to a window or write to
         an output file if output path is provided.
+        If activations shall be visualized, write activations to video
         """
         if self.output_file is None:
             cv2.imshow("SlowFast", frame)
         else:
             self.output_file.write(frame)
+        if self.acti_output_file and acti is not None:
+            self.acti_output_file.write(acti)
 
     def clean(self):
         """
@@ -116,3 +128,18 @@ class VideoReader:
             cv2.destroyAllWindows()
         else:
             self.output_file.release()
+        if self.acti_output_file:
+            self.acti_output_file.release()
+
+# class ActivationVisualizer(VideoReader):
+#     def __init__(self, cfg):
+#         super().__init__(self, cfg)
+#         self.acti_output_file = None
+#         if cfg.DEMO.MODEL_VIS.ACTIVATIONS != "":
+#             if cfg.DEMO.OUTPUT_FPS == -1:
+#                 acti_output_fps = self.cap.get(cv2.CAP_PROP_FPS)
+#             else:
+#                 acti_output_fps = cfg.DEMO.OUTPUT_FPS
+#             self.acti_output_file = self.get_output_file(
+#                 cfg.DEMO.MODEL_VIS.ACTIVATIONS, fps=output_fps
+#             )

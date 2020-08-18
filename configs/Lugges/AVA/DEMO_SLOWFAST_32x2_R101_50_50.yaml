@@ -9,7 +9,7 @@ TRAIN:
   CHECKPOINT_TYPE: pytorch
 DATA:
   NUM_FRAMES: 32
-  SAMPLING_RATE: 2
+  SAMPLING_RATE: 1
   TRAIN_JITTER_SCALES: [256, 320]
   TRAIN_CROP_SIZE: 224
   TEST_CROP_SIZE: 256
@@ -73,7 +73,7 @@ OUTPUT_DIR: .
 DEMO:
   ENABLE: True
   LABEL_FILE_PATH: "/mnt/workspace/lm78463/ava/ava_lables.json"
-  INPUT_VIDEO: "/mnt/workspace/lm78463/sf_videos/gt/mike_greifbar_new.mp4"
-  OUTPUT_FILE: "/mnt/workspace/lm78463/sf_videos/pred/mike_greifbar_new_sf.mp4"
+  INPUT_VIDEO: "/mnt/workspace/lm78463/sf_videos/gt/outdoor.mp4"
+  OUTPUT_FILE: "/mnt/workspace/lm78463/sf_videos/pred/outdoor_sr1_sf.mp4"
   DETECTRON2_CFG: "COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml"
   DETECTRON2_WEIGHTS: detectron2://COCO-Detection/faster_rcnn_R_50_FPN_3x/137849458/model_final_280758.pkl
