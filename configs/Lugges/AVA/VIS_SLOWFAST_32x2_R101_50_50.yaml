@@ -76,8 +76,8 @@ TENSORBOARD:
 DEMO:
     ENABLE: False
     LABEL_FILE_PATH: "/mnt/workspace/lm78463/ava/ava_lables.json"
-    INPUT_VIDEO: "/mnt/workspace/lm78463/sf_videos/gt/mike_greifbar_new.mp4"
-    OUTPUT_FILE: "/mnt/workspace/lm78463/sf_videos/pred/mike_greifbar_new_sf.mp4"
+    INPUT_VIDEO: "/mnt/workspace/lm78463/sf_videos/gt/skate.mp4"
+    OUTPUT_FILE: "/mnt/workspace/lm78463/sf_videos/pred/skate_sf.mp4"
     DETECTRON2_CFG: "COCO-Detection/faster_rcnn_R_50_FPN_3x.yaml"
     DETECTRON2_WEIGHTS: "detectron2://COCO-Detection/faster_rcnn_R_50_FPN_3x/137849458/model_final_280758.pkl"
     MODEL_VIS:
@@ -85,5 +85,6 @@ DEMO:
         MODEL_WEIGHTS: True
         ACTIVATIONS: "/mnt/workspace/lm78463/sf/pred/mike_greifbar_new_act.mp4"
         INPUT_VIDEO: "/mnt/workspace/lm78463/sf_videos/gt/mike_greifbar_new.mp4"
-        LAYER_LIST: ["s1/pathway0_stem/conv"]
+        LAYER_LIST: ["s1/pathway0_stem/conv", "s1/pathway1_stem/conv", "s2/pathway0_res0/branch2/b", "s2/pathway1_res0/branch2/b", "s4/pathway0_res22/branch2/b", "s4/pathway1_res22/branch2/b", "s5/pathway0_res2/branch2/b", "s5/pathway1_res2/branch2/b"]
+
 

@@ -71,7 +71,7 @@ def run_demo(cfg, frame_provider):
             break
         if cfg.DETECTION.ENABLE:
             task = object_detector(task)
-
+        import pdb; pdb.set_trace()
         task = model(task)
         frames = draw_predictions(task, video_vis, cfg.DETECTION.DRAW_RANGE)
         # hit Esc to quit the demo.

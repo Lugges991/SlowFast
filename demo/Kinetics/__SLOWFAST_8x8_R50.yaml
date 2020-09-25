@@ -62,7 +62,7 @@ DATA_LOADER:
 DEMO:
   ENABLE: True
   LABEL_FILE_PATH: "./demo/Kinetics/kinetics_400_labels.csv"
-  DATA_SOURCE: "/mnt/workspace/lm78463/mike_greifbar.mp4"
+  DATA_SOURCE: "/mnt/workspace/lm78463/sf_videos/gt/skate.mp4"
   # DISPLAY_WIDTH: 640
   # DISPLAY_HEIGHT: 480
 NUM_GPUS: 1
